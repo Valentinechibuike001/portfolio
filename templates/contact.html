@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="contact">
+  <h1 class="page-title">Get in <span>Touch</span></h1>
+  <p class="contact-intro">Have a project or an idea? Send me a message.</p>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, text in messages %}
+      <div class="flash {{ category }}">{{ text }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="POST" class="contact-form">
+    <label for="name">Your name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Your email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">Your message</label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+
+    <button type="submit" class="btn primary">Send message</button>
+  </form>
+</section>
+{% endblock %}

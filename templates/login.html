@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+<section class="contact">
+  <h1 class="page-title">Admin <span>Login</span></h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, text in messages %}
+      <div class="flash {{ category }}">{{ text }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="POST" class="contact-form">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit" class="btn primary">Log in</button>
+  </form>
+</section>
+{% endblock %}

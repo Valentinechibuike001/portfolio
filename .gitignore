@@ -1,0 +1,4 @@
+venv/
+instance/
+messages.txt
+__pycache__/

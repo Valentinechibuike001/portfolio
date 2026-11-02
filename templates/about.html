@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block title %}About Me{% endblock %}
+
+{% block content %}
+<section class="about">
+  <h1 class="page-title">About <span>Me</span></h1>
+
+  <div class="about-grid">
+    <div class="card">
+      <h3>Who I am</h3>
+      <p>
+        I am a Full-Stack Developer passionate about building functional, scalable, and user-friendly web applications. I specialize in developing modern front-end interfaces with React and building reliable backend systems using Node.js, Express.js, and MongoDB. I am also proficient in Python Flask for backend development and building dynamic web applications.
+
+I enjoy transforming ideas and complex requirements into practical digital solutions through clean, maintainable, and efficient code. My development approach focuses on creating responsive user interfaces, well-structured APIs, efficient database management, and seamless communication between frontend and backend systems.
+
+I am continuously learning, improving my technical skills, and exploring better ways to solve real-world problems through technology. I value teamwork, collaboration, and knowledge sharing, and I am ready to contribute my skills, creativity, and problem-solving abilities to a team, collaborate with other developers, and help build impactful products that make a difference.
+
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Education</h3>
+      <p>B.Sc. Computer Science</p>
+      <p class="muted">University of Nigeria, Nsukka</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Skills</h2>
+  <div class="skills">
+    <span class="skill">Python</span>
+    <span class="skill">Flask</span>
+    <span class="skill">full stack web Developer</span>
+    <span class="skill">React</span>
+    <span class="skill">express.js</span>
+    <span class="skill">Html  &amp; CSS</span>
+  </div>
+    <div class="cv-section">
+    <a class="btn primary" href="{{ url_for('static', filename='files/cv.pdf') }}" download="Valentine-CV.pdf">Download my CV</a>
+  </div>
+</section>
+{% endblock %}

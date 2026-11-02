@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <p class="tag">Software Developer | Python &amp; Flask</p>
+    <h1>Hi, I'm <span>Valentine</span></h1>
+    <p class="intro"> i'm a Developer ,Full stack developer , software developer </p>
+
+    <div class="chips">
+      <span class="chip">Python</span>
+      <span class="chip">Flask</span>
+      <span class="chip">HTML &amp; CSS </span>
+      <span class="chip">React</span>
+      <span class="chip">express.js</span>
+    </div>
+
+    <div class="buttons">
+      <a class="btn primary" href="#">See my work</a>
+     <a class="btn secondary" href="{{ url_for('contact') }}">Get in touch</a>
+      <a class="btn secondary" href="#">Hire me </a>
+       <a class="btn secondary" href="{{ url_for('static', filename='files/cv.pdf') }}" download="Valentine-CV.pdf">Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <div class="photo-ring">
+      <img src="{{ url_for('static', filename='images/profile.jpeg') }}" alt="Photo of Valentine">
+    </div>
+  </div>
+</section>
+{% endblock %}
