@@ -4,6 +4,7 @@ from functools import wraps
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "***REMOVED*** ")
@@ -25,7 +26,14 @@ class Project(db.Model):
 
     def tech_list(self):
         return [item.strip() for item in self.tech.split(",") if item.strip()]
+    
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
 with app.app_context():
     db.create_all()
@@ -77,14 +85,15 @@ def contact():
 
         if not name or not email or not message:
             flash("Please fill in every box.", "error")
+        elif len(name) > 100 or len(email) > 200 or len(message) > 5000:
+            flash("Your message is too long.", "error")
         else:
-            with open(os.path.join(BASE_DIR, "messages.txt"), "a", encoding="utf-8") as file:
-                file.write(f"Name: {name}\nEmail: {email}\nMessage: {message}\n{'-' * 30}\n")
+            db.session.add(Message(name=name, email=email, body=message))
+            db.session.commit()
             flash("Thanks! Your message has been sent.", "success")
             return redirect(url_for("contact"))
 
     return render_template("contact.html")
-
 
 @app.route("/github")
 def github():
@@ -134,8 +143,7 @@ def admin():
             return redirect(url_for("admin"))
 
     all_projects = Project.query.all()
-    return render_template("admin.html", projects=all_projects)
-
+    return render_template("admin.html", projects=all_projects, message_count=Message.query.count())
 
 @app.route("/admin/delete/<int:project_id>", methods=["POST"])
 @login_required
@@ -177,6 +185,25 @@ def edit_project(project_id):
             return redirect(url_for("admin"))
 
     return render_template("edit.html", project=project)
+
+
+
+@app.route("/admin/messages")
+@login_required
+def messages_page():
+    all_messages = Message.query.order_by(Message.created.desc()).all()
+    return render_template("messages.html", messages=all_messages)
+
+
+@app.route("/admin/messages/delete/<int:message_id>", methods=["POST"])
+@login_required
+def delete_message(message_id):
+    msg = db.session.get(Message, message_id)
+    if msg:
+        db.session.delete(msg)
+        db.session.commit()
+        flash("Message deleted.", "success")
+    return redirect(url_for("messages_page"))
 
 
 

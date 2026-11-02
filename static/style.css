@@ -291,3 +291,24 @@ button.btn {
   text-decoration: none;
 }
 .edit-btn:hover { background: var(--yellow); }
+
+
+.message-card {
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 6px solid var(--teal);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.message-head {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.message-head strong { color: var(--yellow); }
+.message-meta { opacity: 0.75; font-size: 0.9rem; }
+.message-card a { color: var(--teal); }
+.message-body { white-space: pre-wrap; margin: 12px 0 16px; }
